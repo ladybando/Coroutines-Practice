@@ -5,29 +5,41 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.caren.coroutinesexercise.databinding.ActivityMainBinding
+import kotlinx.coroutines.*
+
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var counter: Button
+    private lateinit var timer: Button
+    private lateinit var textView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         var num = 0
+        counter = binding.buttonCounter
+        timer = binding.buttonTimer
+        textView = binding.textView
 
-        findViewById<Button>(R.id.button).setOnClickListener {
+        counter.setOnClickListener {
             num++
-            findViewById<TextView>(R.id.textView).text = num.toString()
+            textView.text = num.toString()
+            Log.i("MainActivity", "CLicked counter")
         }
 
-        findViewById<Button>(R.id.button2).setOnClickListener {
+        timer.setOnClickListener {
             // Start 5 second timer
+            GlobalScope.launch{
             Log.i("MainActivity", "Start 5 second timer")
-            Thread.sleep(5000)
+            delay(5000)
             Log.i("MainActivity", "5 second timer ended")
+            }
         }
+
     }
 }
