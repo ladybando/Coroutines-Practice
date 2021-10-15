@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import com.caren.coroutinesexercise.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -29,15 +30,15 @@ class MainActivity : AppCompatActivity() {
         counter.setOnClickListener {
             num++
             textView.text = num.toString()
-            Log.i("MainActivity", "CLicked counter")
+            Log.i("MainActivity", "Clicked counter")
         }
 
         timer.setOnClickListener {
             // Start 5 second timer
-            GlobalScope.launch{
-            Log.i("MainActivity", "Start 5 second timer")
-            delay(5000)
-            Log.i("MainActivity", "5 second timer ended")
+            lifecycleScope.launch(Dispatchers.Default) {
+                Log.i("MainActivity", "Start 5 second timer")
+                delay(5000)
+                Log.i("MainActivity", "5 second timer ended")
             }
         }
 
